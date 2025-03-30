@@ -1,11 +1,5 @@
 package vm
 
-// IM (Instruction Mapping) struct
-type IM struct {
-	O Opcode
-	S int8
-}
-
 // Memory represents a fixed-size memory array (0-65536 bytes)
 type Memory [65536]int8
 
@@ -24,6 +18,13 @@ type VM struct {
 	B int16 // Break line
 }
 
-func New() *VM {
-	return &VM{}
+// New initializes a new VM with default values
+func NewVirtualmachine() *VM {
+	vm := &VM{}
+	vm.C.R.SP = 0xFFFF // Stack pointer at the top
+	vm.C.R.IP = 0x0000 // Start execution at address 0
+	for i := range vm.M {
+		vm.M[i] = 0 // Zero out memory
+	}
+	return vm
 }
