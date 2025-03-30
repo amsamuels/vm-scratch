@@ -42,29 +42,3 @@ type Instruction struct {
 	O Opcode
 	A Args
 }
-
-// Opcode-to-instruction size mapping
-var instrMap = map[Opcode]uint8{
-	Nop:  1,
-	Hlt:  1,
-	Mov:  3,
-	0x09: 3, 0x0A: 3, 0x0B: 3, 0x0C: 3, // MOV variants
-	0x0D: 3, 0x0E: 3, 0x0F: 3,
-	Ste:  1,
-	Stg:  1,
-	Stl:  1,
-	Sth:  1,
-	Cle:  1,
-	Clg:  1,
-	Cll:  1,
-	Clh:  1,
-	Push: 3,
-	Pop:  3,
-}
-
-func GetInstructionSize(op Opcode) uint8 {
-	if size, exists := instrMap[op]; exists {
-		return size
-	}
-	return 0 // Default: Invalid opcode
-}
